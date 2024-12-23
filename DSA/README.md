@@ -1,12 +1,10 @@
-# When to use which Data Structures?
-
 In C++, the Standard Template Library (STL) provides a rich set of generic classes and functions for managing collections of data, performing algorithms, and handling iterators. The STL is designed to offer efficient and reusable components for handling different data structures and algorithms. When choosing which STL library to use, it depends on your specific needs in terms of performance, memory, and functionality. Here's a guide to help you decide which STL containers and algorithms to use in different situations:
 
 ### 1. **Sequence Containers**: 
    Sequence containers are used to store collections of elements, where the order of elements matters.
 
    - **`std::vector`**:
-     - **Use when**: You need a dynamic array with fast random access (constant time) and efficient memory usage. Itâ€™s efficient when you need to frequently append elements at the end.
+     - **Use when**: You need a dynamic array with fast random access (constant time) and efficient memory usage. It’s efficient when you need to frequently append elements at the end.
      - **When to avoid**: When you need to insert or delete elements at the front or in the middle of the collection frequently, as these operations are costly (O(n)).
 
    - **`std::deque`**:
@@ -34,7 +32,7 @@ In C++, the Standard Template Library (STL) provides a rich set of generic class
 
    - **`std::map`**:
      - **Use when**: You need a key-value pair collection, where the keys are unique, and you need sorted order of keys.
-     - **When to avoid**: When you donâ€™t need the keys to be sorted and when performance of insertions and lookups is less important.
+     - **When to avoid**: When you don’t need the keys to be sorted and when performance of insertions and lookups is less important.
 
    - **`std::multiset`**:
      - **Use when**: You need a collection of sorted elements but want to allow duplicates.
@@ -48,19 +46,19 @@ In C++, the Standard Template Library (STL) provides a rich set of generic class
    These containers store elements in an unordered way, allowing for average constant-time lookup and insertion.
 
    - **`std::unordered_set`**:
-     - **Use when**: You need to store unique elements, but donâ€™t need them to be sorted. The average time complexity for insertions, lookups, and deletions is O(1).
+     - **Use when**: You need to store unique elements, but don’t need them to be sorted. The average time complexity for insertions, lookups, and deletions is O(1).
      - **When to avoid**: When you need the elements to be sorted or need to frequently traverse elements in order.
 
    - **`std::unordered_map`**:
-     - **Use when**: You need a key-value pair collection with average O(1) time complexity for insertion, deletion, and lookups, and the order of elements doesnâ€™t matter.
+     - **Use when**: You need a key-value pair collection with average O(1) time complexity for insertion, deletion, and lookups, and the order of elements doesn’t matter.
      - **When to avoid**: If you need elements to be stored in a specific order or if your application requires very high stability in performance (since hashing can sometimes result in poor worst-case time complexity).
 
    - **`std::unordered_multiset`**:
-     - **Use when**: You need a set of elements that allows duplicates and donâ€™t need them to be sorted.
+     - **Use when**: You need a set of elements that allows duplicates and don’t need them to be sorted.
      - **When to avoid**: If the order of the elements is important.
 
    - **`std::unordered_multimap`**:
-     - **Use when**: You need a collection of key-value pairs with duplicates allowed and donâ€™t care about sorting.
+     - **Use when**: You need a collection of key-value pairs with duplicates allowed and don’t care about sorting.
      - **When to avoid**: If sorted key-order is essential.
 
 ### 4. **Container Adapters**:
@@ -103,3 +101,5 @@ In C++, the Standard Template Library (STL) provides a rich set of generic class
 - **Use `std::map` and `std::set`** when you need ordered collections.
 - **Use `std::unordered_map` and `std::unordered_set`** when you don't care about order and need average O(1) performance.
 - **Use `std::stack`, `std::queue`, or `std::priority_queue`** when you need container adapters for specific use cases.
+
+Choosing the right STL container is essential for writing efficient and maintainable code, and understanding the trade-offs of each container type is key to making the right decision.
