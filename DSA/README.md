@@ -1,3 +1,5 @@
+# When to use which Data Structures?
+
 In C++, the Standard Template Library (STL) provides a rich set of generic classes and functions for managing collections of data, performing algorithms, and handling iterators. The STL is designed to offer efficient and reusable components for handling different data structures and algorithms. When choosing which STL library to use, it depends on your specific needs in terms of performance, memory, and functionality. Here's a guide to help you decide which STL containers and algorithms to use in different situations:
 
 ### 1. **Sequence Containers**: 
