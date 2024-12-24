@@ -153,5 +153,3 @@ This table provides a comprehensive view of the functions and their time complex
 5. **Size/Capacity**: Functions like `size()`, `capacity()`, `max_size()`, `empty()`, and `resize()` help manage the size and capacity of the vector.
 6. **Memory Management**: `data()` and `get_allocator()` give control over the internal memory management and allocator.
 7. **Other Operations**: Functions like `swap()` and `assign()` provide additional functionality for modifying the vector’s contents or its relationship with other vectors.
-
-This classification should make it easier for you to understand which functions are used for specific tasks when working with `std::vector`.
