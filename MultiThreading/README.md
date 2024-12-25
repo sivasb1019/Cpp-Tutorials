@@ -79,5 +79,3 @@ Launches a task asynchronously and retrieves the result via `std::future`. It si
 5. Test thoroughly for concurrency issues.
 
 --- 
-
-This is a comprehensive yet beginner-friendly overview of multithreading, including types of mutexes. Let me know if you need any additional details!
