@@ -40,6 +40,7 @@ void producer(){
     cout << "Producer Waiting....\n";
     do{
         unique_lock<mutex> lock(mtx);
+        cout << "Producer got the lock..." << endl;
         cv.wait(lock, [] { return (free_>0) ? true : false;});
         free_--;
         cout << "Producer Started. Pushing to the queue..." << endl;
@@ -47,14 +48,16 @@ void producer(){
         full++;
         cout << "full: " << full << " free: " << free_ << endl;
         cout << "Notifying Consumer..." << endl << endl;
+        lock.unlock();
         cv.notify_one();
-    }while(1);
+    }while(5);
 }
 
 void consumer(){
     cout << "Consumer Waiting....\n";
-    unique_lock<mutex> lock(mtx);
     do{
+        unique_lock<mutex> lock(mtx);
+        cout << "Consumer got the lock..." << endl;
         cv.wait(lock, [] { return (full>0) ? true : false;});
         full--;
         cout << "Consumer Started. Popping from the queue..." << " ";
@@ -63,13 +66,13 @@ void consumer(){
         free_++;
         cout << "full: " << full << " free: " << free_ << endl;
         cout << "Notifying Producer..." << endl << endl;
+        lock.unlock();
         cv.notify_one();
-    }while(1);
+    }while(5);
     
 }
 
 int main(){
-    int limit;
     thread t1(producer);
     thread t2(consumer);
 

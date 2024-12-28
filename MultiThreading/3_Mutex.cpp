@@ -15,10 +15,16 @@ void addMoney(string t) {
     mtx.unlock();
 }
 void addMoneyBy1Lakh(string t) {
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 100; i++) {
         if (mtx.try_lock()) {
+            //this_thread::sleep_for(chrono::seconds(1));
+            cout << t << " locked rthe mutex = " << i << endl;
             money++; //critical section
+
             mtx.unlock();
+        }
+        else {
+            cout << t << " can't able to lock when i = " << i << endl;
         }
     }
     cout << t << " Money: " << money << endl;

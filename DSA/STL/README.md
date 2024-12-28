@@ -1,0 +1,3 @@
+###Iterators
+
+Types of iterators(not necessary to know for coding purposes, but helps to wrap your head around the language’s concepts) are: input(suitable for input streams like keyboard buffers/read only files), output(suitable for output streams like screen text), forward(singly linked lists, unordered sets, maps, multi sets/maps), bidirectional(doubly linked lists, multisets/maps) and random access(arrays, dequeue and vectors).

@@ -9,7 +9,7 @@ void fun(int n, string content){
     while(n --> 0){
         cout << content << endl;
     }
-    this_thread::sleep_for(chrono::seconds(3));
+    //this_thread::sleep_for(chrono::seconds(3));
     cout << content << " finished working" << endl;
 }
 
@@ -26,7 +26,7 @@ void joinThread(){
 void detachThread(){
 
     thread td1(fun, 10, " Detach Thread 1");
-    thread td2(fun, 10, " Detach Thread 2");
+    thread td2(fun, 10, " Detach Thread 2......................................");
     td1.detach();
     td2.detach();
 }
@@ -36,8 +36,12 @@ int main(){
     cout << "Thread started working" << endl;
 
     //joinThread();
-    detachThread();
-    this_thread::sleep_for(chrono::seconds(2));
+
+    thread td1(fun, 10, " Detach Thread 1");
+    thread td2(fun, 10, " Detach Thread 2");
+    td1.detach();
+    td2.join();
+    //this_thread::sleep_for(chrono::seconds(2));
 
     cout << "exiting" << endl;
     return 0;

@@ -2,7 +2,11 @@
 Important Points to Remember:
     - Only the Base class Method's declaration needs the Virtual Keyword, not the definition.
     - If a function is declared as virtual in the base class, it will be virtual in all its derived classes.
-    - The address of the virtual Function is placed in the VTABLE and the copiler uses VPTR(vpointer) to point to the Virtual Function.
+    - The address of the virtual Function is placed in the VTABLE and the compiler uses VPTR(vpointer) to point to the Virtual Function.
+
+Why can't we create Object of an Abstract Class?
+    - When we create a pure virtual function in Abstract class, we reserve a slot for a function in the VTABLE(studied in last topic), but doesn't put any address in that slot. Hence the VTABLE will be incomplete.
+    - As the VTABLE for Abstract class is incomplete, hence the compiler will not let the creation of object for such class and will display an errror message whenever you try to do so.
 */
 
 #include <iostream>

@@ -39,19 +39,6 @@ In C++, the Standard Template Library (STL) provides a rich set of generic class
      - **When to avoid**: When you need fast random access to elements or if unique elements are required.
 
    - **`std::multimap`**:
-     - **Use when**: You need a collection of key-value pairs where duplicate keys are allowed.
-     - **When to avoid**: If you require quick access to the elements via key and don't need duplicates.
-
-### 3. **Unordered Associative Containers**:
-   These containers store elements in an unordered way, allowing for average constant-time lookup and insertion.
-
-   - **`std::unordered_set`**:
-     - **Use when**: You need to store unique elements, but don’t need them to be sorted. The average time complexity for insertions, lookups, and deletions is O(1).
-     - **When to avoid**: When you need the elements to be sorted or need to frequently traverse elements in order.
-
-   - **`std::unordered_map`**:
-     - **Use when**: You need a key-value pair collection with average O(1) time complexity for insertion, deletion, and lookups, and the order of elements doesn’t matter.
-     - **When to avoid**: If you need elements to be stored in a specific order or if your application requires very high stability in performance (since hashing can sometimes result in poor worst-case time complexity).
 
    - **`std::unordered_multiset`**:
      - **Use when**: You need a set of elements that allows duplicates and don’t need them to be sorted.
