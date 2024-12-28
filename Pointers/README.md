@@ -1,6 +1,6 @@
-# Pointers vs Smart Pointers
+# Raw Pointers vs Smart Pointers
 
-## Pointer
+## Raw Pointer
 
 A **pointer** is a variable that holds the memory address of another variable. It stores the address of a specific memory location and has a data type that provides information about what kind of data is stored at that address.
 
@@ -23,7 +23,7 @@ A **smart pointer** is an object that wraps a raw pointer and provides automatic
 
 ## Comparison
 
-| Feature                    | Pointer                        | Smart Pointer                  |
+| Feature                    | Raw Pointer                        | Smart Pointer                  |
 |----------------------------|--------------------------------|---------------------------------|
 | **Definition**              | Variable that holds a memory address | A class that wraps a pointer, managing memory automatically |
 | **Memory Management**       | Manual (programmer handles memory allocation and deallocation) | Automatic (memory is managed by the smart pointer, e.g., reference counting) |
