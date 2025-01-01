@@ -1,3 +1,5 @@
+# Socket Programming
+
 **Socket programming** is a way to enable communication between two nodes on a network, typically a client and a server. It is a fundamental concept in network programming and is used to send and receive data over a network. Sockets are endpoints of communication, and they provide an abstraction for using network services in a programmatic way.
 
 ### How It Works:
