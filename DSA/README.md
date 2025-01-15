@@ -4,7 +4,7 @@ In C++, the Standard Template Library (STL) provides a rich set of generic class
    Sequence containers are used to store collections of elements, where the order of elements matters.
 
    - **`std::vector`**:
-     - **Use when**: You need a dynamic array with fast random access (constant time) and efficient memory usage. It’s efficient when you need to frequently append elements at the end.
+     - **Use when**: You need a dynamic array with fast random access (constant time) and efficient memory usage. Itâ€™s efficient when you need to frequently append elements at the end.
      - **When to avoid**: When you need to insert or delete elements at the front or in the middle of the collection frequently, as these operations are costly (O(n)).
 
    - **`std::deque`**:
@@ -32,20 +32,21 @@ In C++, the Standard Template Library (STL) provides a rich set of generic class
 
    - **`std::map`**:
      - **Use when**: You need a key-value pair collection, where the keys are unique, and you need sorted order of keys.
-     - **When to avoid**: When you don’t need the keys to be sorted and when performance of insertions and lookups is less important.
+     - **When to avoid**: When you donâ€™t need the keys to be sorted and when performance of insertions and lookups is less important.
 
    - **`std::multiset`**:
      - **Use when**: You need a collection of sorted elements but want to allow duplicates.
      - **When to avoid**: When you need fast random access to elements or if unique elements are required.
 
    - **`std::multimap`**:
-
+      - **Use when**: You need a collection of key-value pairs where the keys are sorted, and multiple entries with the same key are allowed.
+      - **When to avoid**: When you need fast random access to elements by key or if each key should be unique.
    - **`std::unordered_multiset`**:
-     - **Use when**: You need a set of elements that allows duplicates and don’t need them to be sorted.
+     - **Use when**: You need a set of elements that allows duplicates and donâ€™t need them to be sorted.
      - **When to avoid**: If the order of the elements is important.
 
    - **`std::unordered_multimap`**:
-     - **Use when**: You need a collection of key-value pairs with duplicates allowed and don’t care about sorting.
+     - **Use when**: You need a collection of key-value pairs with duplicates allowed and donâ€™t care about sorting.
      - **When to avoid**: If sorted key-order is essential.
 
 ### 4. **Container Adapters**:
