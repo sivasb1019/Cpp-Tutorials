@@ -1,5 +1,3 @@
----
-
 ### 1. **`OpenProcess`**
 - **Header**: `<windows.h>`
 - **Purpose**: 
