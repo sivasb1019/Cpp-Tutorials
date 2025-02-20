@@ -1,3 +1,157 @@
+---
+
+### 1. **`OpenProcess`**
+- **Header**: `<windows.h>`
+- **Purpose**: 
+  This function is used to **open a process** by its **process ID (PID)** and get a handle to it. The handle allows you to interact with the process (e.g., read memory, query information, etc.).
+- **Syntax**:
+  ```cpp
+  HANDLE OpenProcess(DWORD dwDesiredAccess, BOOL bInheritHandle, DWORD dwProcessId);
+  ```
+  - `dwDesiredAccess`: Specifies the access rights (e.g., `PROCESS_QUERY_INFORMATION` for querying process info).
+  - `bInheritHandle`: If set to `TRUE`, the handle can be inherited by child processes.
+  - `dwProcessId`: The process ID of the target process to open.
+- **Why used in the code**: We use this to get a handle to the target process (`postgres.exe` or any other process by its PID) so we can query its modules (DLLs) and perform operations like checking whether a specific DLL is loaded.
+
+---
+
+### 2. **`EnumProcessModules`**
+- **Header**: `<psapi.h>`
+- **Purpose**: 
+  This function enumerates the **modules** (like DLLs) that are loaded in the specified process.
+- **Syntax**:
+  ```cpp
+  BOOL EnumProcessModules(HANDLE hProcess, HMODULE* lphModule, DWORD cb, LPDWORD lpcbNeeded);
+  ```
+  - `hProcess`: A handle to the process (opened with `OpenProcess`).
+  - `lphModule`: An array of `HMODULE` handles that will be filled with the loaded module addresses.
+  - `cb`: The size of the `lphModule` array (in bytes).
+  - `lpcbNeeded`: The number of bytes written to `lphModule`.
+- **Why used in the code**: We use this function to enumerate the modules (DLLs) loaded by the process so we can check if the target DLL (`mbsbghelper.dll`) is loaded.
+
+---
+
+### 3. **`GetModuleFileNameEx`**
+- **Header**: `<psapi.h>`
+- **Purpose**: 
+  This function retrieves the **full path** of a module (DLL or EXE) loaded in a process.
+- **Syntax**:
+  ```cpp
+  DWORD GetModuleFileNameEx(HANDLE hProcess, HMODULE hModule, LPWSTR lpBaseName, DWORD nSize);
+  ```
+  - `hProcess`: A handle to the process.
+  - `hModule`: A handle to the module (DLL) we want to get the file name for.
+  - `lpBaseName`: A buffer to store the module's full path.
+  - `nSize`: The size of the buffer.
+- **Why used in the code**: We use this function to get the **full path** of each loaded module (DLL) and check if it matches the specified `dllName` (`mbsbghelper.dll`).
+
+---
+
+### 4. **`EnumProcesses`**
+- **Header**: `<psapi.h>`
+- **Purpose**: 
+  This function is used to retrieve the **process IDs (PIDs)** of all the currently running processes.
+- **Syntax**:
+  ```cpp
+  BOOL EnumProcesses(DWORD* lpidProcess, DWORD cb, LPDWORD lpcbNeeded);
+  ```
+  - `lpidProcess`: A pointer to an array that will hold the PIDs of the running processes.
+  - `cb`: The size of the `lpidProcess` array (in bytes).
+  - `lpcbNeeded`: A pointer to a variable that receives the number of bytes written to `lpidProcess`.
+- **Why used in the code**: We use this function to retrieve the list of all running processes and their PIDs. We then filter these to find processes that match `postgres.exe`.
+
+---
+
+### 5. **`GetModuleBaseName`**
+- **Header**: `<psapi.h>`
+- **Purpose**: 
+  This function retrieves the **name** of the executable module (process name) for a given process.
+- **Syntax**:
+  ```cpp
+  DWORD GetModuleBaseName(HANDLE hProcess, HMODULE hModule, LPWSTR lpBaseName, DWORD nSize);
+  ```
+  - `hProcess`: A handle to the process.
+  - `hModule`: A handle to the module (if `NULL`, retrieves the process's base executable name).
+  - `lpBaseName`: A buffer to store the module's base name (process name).
+  - `nSize`: The size of the buffer.
+- **Why used in the code**: We use this function to get the name of the process (`postgres.exe`) from the process handle. We compare this name to the input `processName` to find matching processes.
+
+---
+
+### 6. **`CloseHandle`**
+- **Header**: `<windows.h>`
+- **Purpose**: 
+  This function closes an **open object handle**, such as a process handle or a file handle.
+- **Syntax**:
+  ```cpp
+  BOOL CloseHandle(HANDLE hObject);
+  ```
+  - `hObject`: A handle to an object (like a process, file, or mutex) that you want to close.
+- **Why used in the code**: After performing actions with a handle (e.g., opening a process), we use `CloseHandle` to close the handle and release system resources.
+
+---
+
+### 7. **`std::wstring`**
+- **Header**: `<string>`
+- **Purpose**: 
+  This is a C++ **wide-character string** type. It stores strings as an array of `wchar_t` characters, which are useful for representing Unicode characters (i.e., non-ASCII characters).
+- **Why used in the code**: Windows often deals with wide strings (e.g., file paths, process names) since many APIs expect `wchar_t`-encoded strings. Using `std::wstring` allows us to work conveniently with such strings.
+
+---
+
+### 8. **`std::vector`**
+- **Header**: `<vector>`
+- **Purpose**: 
+  This is a dynamic array from the C++ Standard Library. It automatically handles memory allocation and resizing.
+- **Why used in the code**: We use `std::vector` to store lists of process IDs (`DWORD`) and module handles (`HMODULE`). This makes it easier to dynamically handle collections of data, such as the list of processes or modules.
+
+---
+
+### 9. **`std::wcout`**
+- **Header**: `<iostream>`
+- **Purpose**: 
+  This is the wide-character version of the standard output stream (`std::cout`). It’s used to print wide-character strings (`std::wstring`) to the console.
+- **Why used in the code**: Since we’re working with wide-character strings (e.g., process names and DLL names), we use `std::wcout` to print them to the console in a human-readable format.
+
+---
+
+### 10. **`if`/`else` Statements**
+- **Purpose**: 
+  These are **conditional statements** that allow you to execute different blocks of code depending on whether a condition is true or false.
+- **Why used in the code**: We use `if` statements to check various conditions, such as:
+  - If we successfully opened a process (`hProcess != NULL`).
+  - If a DLL is loaded in a process (`found != std::wstring::npos`).
+  - If any processes were found that match the specified `processName`.
+
+---
+
+### 11. **`std::wstring::find`**
+- **Purpose**: 
+  This function is used to **search for a substring** within a string. It returns the position of the first occurrence of the substring or `std::wstring::npos` if not found.
+- **Why used in the code**: We use it to check if the specified `dllName` (like `mbsbghelper.dll`) is part of the path of any loaded module.
+  ```cpp
+  size_t found = modulePath.find(dllName);
+  ```
+
+---
+
+### 12. **`std::wstring::npos`**
+- **Purpose**: 
+  This is a constant that represents an **invalid position** in a string, specifically used when `find` or other functions can’t find a substring.
+- **Why used in the code**: It helps us check if the `dllName` was found in the loaded module's path. If `find` returns `std::wstring::npos`, the DLL was not found.
+
+---
+
+### Summary of Key Functions/Keywords:
+
+- **Windows API Functions**: `OpenProcess`, `EnumProcessModules`, `GetModuleFileNameEx`, `EnumProcesses`, `GetModuleBaseName`, `CloseHandle`
+- **C++ Standard Library**: `std::wstring`, `std::vector`, `std::wcout`
+- **Control Flow**: `if`, `else`, `return`
+- **Search Mechanism**: `std::wstring::find`, `std::wstring::npos`
+
+Each of these functions and keywords helps in interacting with system processes, managing strings, handling memory, and printing output, allowing us to effectively detect if a DLL is loaded in a process.
+
+
 ### Function 1: `IsDLLLoadedInProcess`
 
 ```cpp
